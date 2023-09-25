@@ -40,6 +40,12 @@ dart photo_organizer.dart /mnt/media/card /home/user/photos true
 ```
 This command will organize and copy photos from the `/mnt/media/card` source directory to the `/home/user/photos` destination directory. Existing files may be overwritten based on the `overwrite` parameter.
 
+## Releases
+You can build yourself the application or download a release. Be sure to make the application executable by running in Linux or Macos:
+```bash
+chmod 755 photo_organizer_macos_amd64
+```
+
 ## License
 This project is licensed under the MIT License.
 
