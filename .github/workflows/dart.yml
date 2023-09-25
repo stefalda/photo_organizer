@@ -18,6 +18,7 @@ jobs:
             binary-name: photo_organizer_macos_amd64
           - runs-on: windows-latest
             binary-name: photo_organizer_windows.exe
+    permissions: write-all
     runs-on: ${{ matrix.runs-on }}
     steps:
       - uses: actions/checkout@v4.1.0
@@ -33,6 +34,7 @@ jobs:
   release:
     needs: compile
     name: github release
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v3.0.2
