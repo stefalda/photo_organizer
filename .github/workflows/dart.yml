@@ -13,11 +13,11 @@ jobs:
       matrix:
         include:
           - runs-on: ubuntu-latest
-            binary-name: photo_organizer_linux_amd64
+            binary-name: photo_organizer
           - runs-on: macos-latest
-            binary-name: photo_organizer_macos_amd64
+            binary-name: photo_organizer
           - runs-on: windows-latest
-            binary-name: photo_organizer_windows.exe
+            binary-name: photo_organizer.exe
     permissions: write-all
     runs-on: ${{ matrix.runs-on }}
     steps:
