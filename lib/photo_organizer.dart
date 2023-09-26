@@ -83,8 +83,10 @@ Future<DateTime?> _extractCaptureDate(File file) async {
     final fileBytes = file.readAsBytesSync();
     final data = await readExifFromBytes(fileBytes);
     if (data.isEmpty) {
-      print("No EXIF in_formation found");
-      return null;
+      print("No EXIF in_formation found - using last modified date");
+      // Use the file creation date
+      final stat = FileStat.statSync(file.path);
+      return stat.modified;
     }
     //
     if (data.containsKey("EXIF DateTimeOriginal")) {
