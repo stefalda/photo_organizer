@@ -13,19 +13,20 @@ jobs:
       matrix:
         include:
           - runs-on: ubuntu-latest
-            binary-name: photo_organizer_linux_amd64
+            binary-name: photo_organizer
           - runs-on: macos-latest
-            binary-name: photo_organizer_macos_amd64
+            binary-name: photo_organizer
           - runs-on: windows-latest
-            binary-name: photo_organizer_windows.exe
+            binary-name: photo_organizer.exe
+    permissions: write-all
     runs-on: ${{ matrix.runs-on }}
     steps:
-      - uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@v1
+      - uses: actions/checkout@v4.1.0
+      - uses: dart-lang/setup-dart@v1.5.1
       - run: dart pub get
       - run: mkdir ${{ matrix.runs-on }}
       - run: dart compile exe bin/photo_organizer.dart -o ${{ matrix.runs-on }}/${{ matrix.binary-name }}
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3.1.3
         with:
           name: bin-${{ matrix.runs-on }}
           path: ${{ matrix.runs-on }}
@@ -33,21 +34,22 @@ jobs:
   release:
     needs: compile
     name: github release
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3.0.2
         with:
           name: bin-ubuntu-latest
           path: bin-linux
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3.0.2
         with:
           name: bin-macos-latest
           path: bin-macos
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3.0.2
         with:
           name: bin-windows-latest
           path: bin-windows
-      - uses: softprops/action-gh-release@v1
+      - uses: softprops/action-gh-release@v0.1.15
         with:
           draft: true
           files: bin-*/*
